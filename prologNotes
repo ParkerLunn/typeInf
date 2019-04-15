@@ -56,3 +56,20 @@ gvLet(v,T,int)
 let x: float = 5 
 gvLet(x,float,int) <- should fail because int cannot be cast to float
  write comments of ocaml code then write prolog translation and see how type inference works
+
+ main pattern-> separate head from body, process head, recurse on body
+ 
+ for loops: captured different statements and executed in certain order. capture constraints. 
+
+ type of if is same as type of then/else body, use same variable name. 
+
+ Test-> reload main and test file before running tests
+
+ need parens on [let f() = ...] when defining functions
+
+ let f(x) = x+1; 
+ ^^ gVar(f, [int,int]) finds that f has input/output of int/int after running
+
+ ***write tests that has to fail -> test(Fct, [false]) gets type error when there
+ is no way to do type inference(branches of if statement produce different types) or 
+ gvLet(x,float,int) should fail. Need to have tests that failed correctly.

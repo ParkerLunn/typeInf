@@ -90,6 +90,7 @@ fType(fplus, [float, float, float]).
 fType(fToInt, [float,int]).
 fType(iToFloat, [int,float]).
 fType(print, [_X, unit]). /* simple print */
+fType(indentity, [T,T]). /*input->output, polymorphic*/
 
 /* Find function signature
    A function is either buld in using fType or
