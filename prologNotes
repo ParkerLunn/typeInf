@@ -1,0 +1,58 @@
+Use SWI prolog
+C++ library for prolog
+signatures: last one is output [int(in), int(in), int(out)]
+assignment: add things to what's given
+\+ <- negation
+\+ var(Fct) checks if var
+\+ atom(Fct) checks if atom
+! limits numner of variants 
+
+typeExp(Fct,T):-
+    \+ var(Fct),
+    \+ atom(Fct),
+    functor(Fct, Fname, _Nargs)
+    !,
+    Fct = .. [Fname|Args],
+    append(Args,[T],FType).
+    fType(Fname,TArgs),
+    typeExpList(FType,TArgs).
+
+asserta-> basic fact to database/ definition to database
+^^ have to deleteGVars() after use because vars could be used in successive runs
+
+global variable def:
+Example:
+    gvLet(name,type, [code]) -> gvLet(v,T,int) -> let v = 3 in ocaml
+
+fType(print, [_X, unit]). /*<- takes anything as input and prints it, simple print*/
+bType(String)
+infer([gvLet(v,T,int)], T2). /*unit/type of whole definition*/) //list of statements that is code 
+gvar(X,T). - X=v T=int.
+
+infer([gvLet(v,T,int),gvLet(v2,T4,iToFloat(T3))], T2). /*infer wipes global variabless when run but stores after*/
+T=T3, T3=int,
+T4 = float,
+T2=unit
+
+gvar(X,T)
+X=v2,
+T=float;/*press r*/
+X=v,
+T=int;
+X=v,
+T=int;
+
+
+figure out how to use trace
+to test code, write variables in database and write infer to prove right type is inferred.
+
+Assignment -> take starting code. try to make ocaml parser in prolog. have our own inference language. only talking about types encountered not values
+
+need to do: if statements, let in, for, while, match(bonus). write tests to see if type inference works
+
+let v = 4
+gvLet(v,T,int)
+
+let x: float = 5 
+gvLet(x,float,int) <- should fail because int cannot be cast to float
+ write comments of ocaml code then write prolog translation and see how type inference works

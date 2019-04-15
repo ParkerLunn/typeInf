@@ -29,7 +29,7 @@ typeStatement(gvLet(Name, T, Code), unit):-
     atom(Name), /* make sure we have a bound name */
     typeExp(Code, T), /* infer the type of Code and ensure it is T */
     bType(T), /* make sure we have an infered type */
-    asserta(gvar(Name, T)). /* add definition to database */
+    asserta(gvar(Name, T)). /* add definition to database to top(most important)*/
 
 /* Code is simply a list of statements. The type is 
     the type of the last statement 
@@ -39,7 +39,7 @@ typeCode([S, S2|Code], T):-
     typeStatement(S,_T),
     typeCode([S2|Code], T).
 
-/* top level function */
+/* top level function, give snippets of code to infer type */
 infer(Code, T) :-
     is_list(Code), /* make sure Code is a list */
     deleteGVars(), /* delete all global definitions */
@@ -106,4 +106,5 @@ functionType(Name, Args) :-
     fType(Name, Args), !. % make deterministic
 
 % This gets wiped out but we have it here to make the linter happy
-gvar(_, _) :- false().
+% gvar(_, _) :- false().
+:- dynamic(gvar/2).
