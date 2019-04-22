@@ -38,7 +38,7 @@ a more complete coverage of OCAml type inference. Specifically:
 
 You need to find your own representation of OCaml code to implement the 
 above and to write your tests accordingly. Keep in mind that only type inference 
-mattes so any constants in the corresponding OCaml code become basic 
+matters so any constants in the corresponding OCaml code become basic 
 types. For example "let v = 3" gets translated as "gvLet(v, T, int)" since 
 3->int and we do not care about values, only types. 
 
@@ -96,7 +96,7 @@ examples in order to write your own tests.
 
 My advice is add tests for each component but you must have 
 at least 20 tests for infer(Code,T) which is the top predicate
-(entry point). Code is a list of statements and T is the infered
+(entry point). Code is a list of statements and T is the inferred
 type of the last statement in the list. 
 
 B) Running tests

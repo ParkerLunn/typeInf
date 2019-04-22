@@ -73,3 +73,15 @@ gvLet(x,float,int) <- should fail because int cannot be cast to float
  ***write tests that has to fail -> test(Fct, [false]) gets type error when there
  is no way to do type inference(branches of if statement produce different types) or 
  gvLet(x,float,int) should fail. Need to have tests that failed correctly.
+
+ [Args]->capital is variable. List of one element
+ Args is better and if you need it to be a list [Arg|Targs] <-forces to be list or isList?
+ List of two elements -> [X,Y|Tail]
+
+ if,for and while structure:
+
+ local variables:
+    discarded after expression use.
+    capture local but discard after use, don't need to use global store.
+    avoid asserts, carry variables/values with you:
+        prolog map type? -> paired list, some sort of key value

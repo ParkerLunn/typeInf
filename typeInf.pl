@@ -20,6 +20,7 @@ typeExpList([Hin|Tin], [Hout|Tout]):-
     typeExp(Hin, Hout), /* type infer the head */
     typeExpList(Tin, Tout). /* recurse */
 
+
 /* TODO: add statements types and their type checking */
 /* global variable definition
     Example:
@@ -30,6 +31,15 @@ typeStatement(gvLet(Name, T, Code), unit):-
     typeExp(Code, T), /* infer the type of Code and ensure it is T */
     bType(T), /* make sure we have an infered type */
     asserta(gvar(Name, T)). /* add definition to database to top(most important)*/
+
+typeStatement(if(Cond, TCode, FCode), T) :- /*run inference on TCode and Fcode with T to enforce type and make sure they are the same*/
+    typeExp(Cond, bool),
+    typeStatement(TCode, T),
+    typeStatement(FCode, T),
+    bType(T).
+
+typeStatement([T],T):-typeStatement(T,T).
+typeStatement(T,T).
 
 /* Code is simply a list of statements. The type is 
     the type of the last statement 
@@ -51,7 +61,9 @@ infer(Code, T) :-
 bType(int).
 bType(float).
 bType(string).
-bType(unit). /* unit type for things that are not expressions */
+bType(unit).
+bType(bool). /* unit type for things that are not expressions */
+
 /*  functions type.
     The type is a list, the last element is the return type
     E.g. add: int->int->int is represented as [int, int, int]
@@ -85,6 +97,7 @@ deleteGVars():-retractall(gvar), asserta(gvar(_X,_Y):-false()).
     TODO: add more functions
 */
 
+fType('>', [float,float,bool]).
 fType(iplus, [int,int,int]).
 fType(fplus, [float, float, float]).
 fType(fToInt, [float,int]).
