@@ -34,8 +34,8 @@ typeStatement(gvLet(Name, T, Code), unit):-
 
 typeStatement(if(Cond, TCode, FCode), T) :- /*run inference on TCode and Fcode with T to enforce type and make sure they are the same*/
     typeExp(Cond, bool),
-    typeStatement(TCode, T),
-    typeStatement(FCode, T),
+    typeExp(TCode, T),
+    typeExp(FCode, T),
     bType(T).
 
 typeStatement(for(gvLet(Name, T, Code), Cond, Inc, Code2), T2) :- /*for statement*/

@@ -47,17 +47,17 @@ test(mockedFct, [nondet]) :-
 %if(f>4.)1 else 0
 test(typeStatement_if,[nondet,true(T == int)]) :-
     deleteGVars(),
-    typeStatement(if(_F>float,[int],[int]), T).
+    typeStatement(if(_F>float,int,int), T).
 
 test(ifWOneFunc,[nondet,true(T==int)]):-
     deleteGVars(),
-    typeStatement(if(iToFloat(I)>float,[int],[int]), T),
+    typeStatement(if(iToFloat(I)>float,int,int), T),
     assertion(I==int).
 
 test(ifWTwoFunc,[nondet,true(T==float)]):-
     deleteGVars(),
-    typeStatement(if(iToFloat(int)>float,fplus(X,Y),[float]), T),
-    assertion(X==float),assertion(Y==float).
+    typeStatement(if(iToFloat(I)>float,fplus(float,float),float), T),
+    assertion(I==int).
 
 %test if statement false
 %if (f>5.) 1 else 5. -> should fail
