@@ -43,14 +43,27 @@ test(mockedFct, [nondet]) :-
 
 
 %test basic if statement true
-test(typeStatement_if,[true(T == int)]) :-
+%let f=5.
+%if(f>4.)1 else 0
+test(typeStatement_if,[nondet,true(T == int)]) :-
     deleteGVars(),
     typeStatement(if(_F>float,[int],[int]), T).
 
-%test if srtatement false
+test(ifWOneFunc,[nondet,true(T==int)]):-
+    deleteGVars(),
+    typeStatement(if(iToFloat(I)>float,[int],[int]), T),
+    assertion(I==int).
+
+test(ifWTwoFunc,[nondet,true(T==float)]):-
+    deleteGVars(),
+    typeStatement(if(iToFloat(int)>float,fplus(X,Y),[float]), T),
+    assertion(X==float),assertion(Y==float).
+
+%test if statement false
+%if (f>5.) 1 else 5. -> should fail
 test(typeStatement_if_false,[fail]) :-
     deleteGVars(),
-    typeStatement(if(_F>float,iplus(X,Y),itoFloat(Z)), int),
-    assertion(X == int), assertion( Y == int), assertion(Z == float).
+    typeStatement(if(_F>float,iplus(X,Y),itoFloat(I)), int),
+    assertion(X == int), assertion( Y == int), assertion(I == float).
 
 :-end_tests(typeInf).

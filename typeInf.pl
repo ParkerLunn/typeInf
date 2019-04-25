@@ -38,6 +38,16 @@ typeStatement(if(Cond, TCode, FCode), T) :- /*run inference on TCode and Fcode w
     typeStatement(FCode, T),
     bType(T).
 
+typeStatement(for(gvLet(Name, T, Code), Cond, Inc, Code2), T2) :- /*for statement*/
+    atom(Name),
+    typeExp(Code, T),
+    bType(T),
+    asserta(gvar(Name, T)),
+    typeExp(Cond, bool),
+    typeExp(Inc, T),
+    typeExp(Code2, T2),
+    deleteGVars().
+
 typeStatement([T],T):-typeStatement(T,T).
 typeStatement(T,T).
 
