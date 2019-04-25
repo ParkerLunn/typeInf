@@ -72,6 +72,16 @@ test(typeStatement_if_false,[fail]) :-
     typeStatement(if(_F>float,iplus(X,Y),itoFloat(I)), int),
     assertion(X == int), assertion( Y == int), assertion(I == float).
 
+test(typeStatement_if_false_1,[fail]) :-
+    deleteGVars(),
+    typeStatement(if(_F>float,fplus(X,Y),itoFloat(I)), int),
+    assertion(X == int), assertion( Y == int), assertion(I == float).
+
+test(typeStatement_if_false_2,[fail]) :-
+    deleteGVars(),
+    typeStatement(if(_F>float,fToInt,itoFloat(I)), int),
+    assertion(I == float).
+
 %for section
 %for(v=5, v<6,v++){ v } -> int
 test(for1,[nondet,true(T==int)]):-
@@ -97,5 +107,8 @@ test(forNegative2, [fail]):-
     typeStatement(for(gvLet(v, int, fplus(X,Y)), bool, int, float), int),
     assertion(X==float), assertion(Y==float).
 
+test(forNegative3, [fail]):-
+    typeStatement(for(gvLet(v, int, iplus(X,Y)), bool, fToInt, float), int),
+    assertion(X==int), assertion(Y==int).
 
 :-end_tests(typeInf).
